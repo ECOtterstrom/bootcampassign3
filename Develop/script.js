@@ -1,28 +1,51 @@
 // Assignment Code
 
-var pwLength = prompt("What will the length of your password be? Choose 1 to 128.");
-var pwNumbers = prompt("Will your password have numbers?");
-var pwLowercase = prompt("Will your password have lowercase letters?");
-var pwUppercase = prompt("Will your password have uppercase letters?");
-var pwSymbols = prompt("Will your password have symbols?");
-var generateBtn = document.querySelector("#generate");
+
 
 // Write password to the #password input
 function writePassword() {
-  var password = generatePassword();
+  var pwLength = prompt("What will the length of your password be? Choose 1 to 128.");
+  var pwNumbers = confirm("Will your password have numbers?");
+  var pwLowercase = confirm("Will your password have lowercase letters?");
+  var pwUppercase = confirm("Will your password have uppercase letters?");
+  var pwSymbols = confirm("Will your password have symbols?");
+  var password = generatePassword(pwNumbers, pwLowercase, pwUppercase, pwSymbols, pwLength);
   var passwordText = document.querySelector("#password");
-  var numChar = prompt("How many characters would you like in your password?  Select a number between 8 and 128.")
-
+ 
 
   passwordText.value = password;
 
 }
 
 // Add event listener to generate button
+var generateBtn = document.querySelector("#generate");
 generateBtn.addEventListener("click", writePassword);
+
+function generatePassword(pwNum, pwLower, pwUpper, pwSymb, pwLength) {
+  var passwordOptions = ''
+  if (pwNum) {
+    passwordOptions = '1234567890' + passwordOptions
+  };
+  if (pwLower) {
+    passwordOptions = 'abcdefghijklmnopqrstuvwxyz' + passwordOptions
+  };
+  if (pwUpper) {
+    passwordOptions = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' + passwordOptions
+  };
+  if (pwSymb) {
+    passwordOptions = '!@#$%^&*()_=+<>' + passwordOptions
+  };
+  var passwordString = ''
+  for (var i = 0; i < pwLength; i++){
+    var randomLetter = passwordOptions[Math.floor(Math.random() * passwordOptions.length)]
+    passwordString = passwordString + randomLetter
+  }
+  return(passwordString)
+};
 
 
 // function writePassword() {
+
 //   var password = generatePassword();
 //   var passwordText = document.querySelector("#password");
 //   var numChar = prompt("How many characters would you like in your password?  Select a number between 8 and 128.")
